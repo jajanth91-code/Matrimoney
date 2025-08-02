@@ -16,11 +16,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['username'] = $user['username'];
         $_SESSION['name'] = $user['name'];
+        $_SESSION['success'] = "Welcome back, " . $user['name'] . "!";
 
         // Check if profile is complete
         if (!empty($user['height']) && !empty($user['nakshatra']) && !empty($user['job'])) {
             header('Location: user-profile.php');
         } else {
+            $_SESSION['success'] = "Welcome! Please complete your profile to get better matches.";
             header('Location: personaldeatiles.php');
         }
         exit;

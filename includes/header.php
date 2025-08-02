@@ -106,6 +106,7 @@ if (session_status() == PHP_SESSION_NONE) {
                 </form>
                 <div class="text-center mt-3">
                     <p>Don't have an account? <a href="register.php">Register here</a></p>
+                    <p><a href="admin/index.php" class="text-muted">Admin Login</a></p>
                 </div>
             </div>
         </div>
