@@ -1,4 +1,5 @@
 <?php
+$page_title = "Complete Profile - Thirumangalyam Matrimony";
 session_start();
 include('Database/db-connect.php');
 
@@ -78,41 +79,40 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Personal Details</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
-</head>
-<body style="background-color: rgb(222, 222, 241);">
+<?php include('includes/header.php'); ?>
+
+<!-- Display Messages -->
+<?php if (isset($_SESSION['error'])): ?>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <?php echo $_SESSION['error']; unset($_SESSION['error']); ?>
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+<?php endif; ?>
+
+<?php if (isset($_SESSION['success'])): ?>
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <?php echo $_SESSION['success']; unset($_SESSION['success']); ?>
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+<?php endif; ?>
+
+<div style="background-color: rgb(222, 222, 241); min-height: 100vh; padding: 20px 0;">
 
     <section class="register">
         <div class="container mt-5">
-            <div class="row" style="background-color: white; padding: 10px 10px;">
+            <div class="row bg-white rounded shadow p-4">
                 <div class="col-md-6">
-                    <img src="images/form-img2.jpg" alt="Form Illustration" height="800px">
+                    <img src="images/form-img2.jpg" alt="Form Illustration" class="img-fluid rounded" style="max-height: 800px;">
                 </div>
                 <div class="col-md-6">
                     <div class="form-container">
                         <h3 class="text-center mb-4">Additional Personal Information</h3>
 
-                        <?php if ($error): ?>
-                            <div class="alert alert-danger"><?php echo $error; ?></div>
-                        <?php endif; ?>
-
-                        <?php if ($success): ?>
-                            <div class="alert alert-success"><?php echo $success; ?></div>
-                        <?php endif; ?>
-
-                        <form action="" method="POST" enctype="multipart/form-data">
+                        <form action="" method="POST" enctype="multipart/form-data" class="needs-validation" novalidate>
                             <div class="form-row">
-                              
                                 <div class="form-group col-md-6">
                                     <label for="height">Height*</label>
-                                    <input type="text" name="height" class="form-control" placeholder="Enter your height" required>
+                                    <input type="text" name="height" class="form-control" placeholder="e.g., 5'6\" or 168 cm" required>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="nakshatra">Nakshatra*</label>
@@ -121,6 +121,30 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                         <option value="Ashwini">Ashwini</option>
                                         <option value="Bharani">Bharani</option>
                                         <option value="Kritika">Kritika</option>
+                                        <option value="Rohini">Rohini</option>
+                                        <option value="Mrigashira">Mrigashira</option>
+                                        <option value="Ardra">Ardra</option>
+                                        <option value="Punarvasu">Punarvasu</option>
+                                        <option value="Pushya">Pushya</option>
+                                        <option value="Ashlesha">Ashlesha</option>
+                                        <option value="Magha">Magha</option>
+                                        <option value="Purva Phalguni">Purva Phalguni</option>
+                                        <option value="Uttara Phalguni">Uttara Phalguni</option>
+                                        <option value="Hasta">Hasta</option>
+                                        <option value="Chitra">Chitra</option>
+                                        <option value="Swati">Swati</option>
+                                        <option value="Vishakha">Vishakha</option>
+                                        <option value="Anuradha">Anuradha</option>
+                                        <option value="Jyeshtha">Jyeshtha</option>
+                                        <option value="Mula">Mula</option>
+                                        <option value="Purva Ashadha">Purva Ashadha</option>
+                                        <option value="Uttara Ashadha">Uttara Ashadha</option>
+                                        <option value="Shravana">Shravana</option>
+                                        <option value="Dhanishta">Dhanishta</option>
+                                        <option value="Shatabhisha">Shatabhisha</option>
+                                        <option value="Purva Bhadrapada">Purva Bhadrapada</option>
+                                        <option value="Uttara Bhadrapada">Uttara Bhadrapada</option>
+                                        <option value="Revati">Revati</option>
                                     </select>
                                 </div>
                             </div>
@@ -130,9 +154,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                     <label for="raasi">Raasi*</label>
                                     <select name="raasi" class="form-control" required>
                                         <option value="">Select Raasi</option>
-                                        <option value="Mesha">Mesha</option>
-                                        <option value="Vrishabha">Vrishabha</option>
-                                        <option value="Mithuna">Mithuna</option>
+                                        <option value="Mesha">Mesha (Aries)</option>
+                                        <option value="Vrishabha">Vrishabha (Taurus)</option>
+                                        <option value="Mithuna">Mithuna (Gemini)</option>
+                                        <option value="Karka">Karka (Cancer)</option>
+                                        <option value="Simha">Simha (Leo)</option>
+                                        <option value="Kanya">Kanya (Virgo)</option>
+                                        <option value="Tula">Tula (Libra)</option>
+                                        <option value="Vrishchika">Vrishchika (Scorpio)</option>
+                                        <option value="Dhanu">Dhanu (Sagittarius)</option>
+                                        <option value="Makara">Makara (Capricorn)</option>
+                                        <option value="Kumbha">Kumbha (Aquarius)</option>
+                                        <option value="Meena">Meena (Pisces)</option>
                                     </select>
                                 </div>
                                 <div class="form-group col-md-6">
@@ -153,6 +186,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                         <option value="Fair">Fair</option>
                                         <option value="Wheatish">Wheatish</option>
                                         <option value="Dusky">Dusky</option>
+                                        <option value="Dark">Dark</option>
                                     </select>
                                 </div>
                             </div>
@@ -162,8 +196,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 <select name="marital_status" class="form-control" required>
                                     <option value="">Select Marital Status</option>
                                     <option value="Single">Single</option>
-                                    <option value="Married">Married</option>
                                     <option value="Divorced">Divorced</option>
+                                    <option value="Widowed">Widowed</option>
                                 </select>
                             </div>
 
@@ -172,9 +206,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                     <label for="qualification">Qualification*</label>
                                     <select name="qualification" class="form-control" required>
                                         <option value="">Select Qualification</option>
-                                        <option value="Ordinary Level">Ordinary Level</option>
-                                        <option value="Advanced Level">Advanced Level</option>
+                                        <option value="High School">High School</option>
+                                        <option value="Diploma">Diploma</option>
                                         <option value="Degree">Degree</option>
+                                        <option value="Masters">Masters</option>
+                                        <option value="PhD">PhD</option>
+                                        <option value="Professional">Professional Course</option>
                                     </select>
                                 </div>
                                 <div class="form-group col-md-6">
@@ -185,19 +222,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                             <div class="form-group">
                                 <label for="user_image">Upload Image</label>
-                                <input type="file" name="user_image" class="form-control">
+                                <input type="file" name="user_image" class="form-control" accept="image/*">
+                                <small class="form-text text-muted">Upload a clear photo (JPG, PNG, GIF - Max 5MB)</small>
                             </div>
 
-                            <button type="submit" class="btn btn-primary btn-block">Submit & Continue</button>
+                            <button type="submit" class="btn btn-primary btn-block btn-lg">
+                                <i class="fas fa-save"></i> Submit & Continue
+                            </button>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+</div>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@1.16.1/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</body>
-</html>
+<?php include('includes/footer.php'); ?>

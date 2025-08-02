@@ -1,45 +1,7 @@
 <?php
-session_start();
+$page_title = "Home - Thirumangalyam Matrimony";
+include('includes/header.php');
 include('Database/db-connect.php');
-
-// If user is logged in already
-if (isset($_SESSION['user_id'])) {
-    $user_id = $_SESSION['user_id'];
-    $query = "SELECT * FROM user_details WHERE id = '$user_id'";
-    $result = mysqli_query($conn, $query);
-    $user = mysqli_fetch_assoc($result);
-
-    if (!empty($user['name']) && !empty($user['gender']) && !empty($user['phone_number'])) {
-        header('Location: user-profile.php');
-        exit;
-    } else {
-        header('Location: personal-details.php');
-        exit;
-    }
-}
-
-// Handle login form (modal)
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login'])) {
-    $username = $_POST['username'];
-    $password = $_POST['password'];
-
-    $query = "SELECT * FROM user_details WHERE username = '$username' AND password = '$password'";
-    $result = mysqli_query($conn, $query);
-    $user = mysqli_fetch_assoc($result);
-
-    if ($user) {
-        $_SESSION['user_id'] = $user['id'];
-
-        if (!empty($user['name']) && !empty($user['gender']) && !empty($user['phone_number'])) {
-            header('Location: user-profile.php');
-        } else {
-            header('Location: personal-details.php');
-        }
-        exit;
-    } else {
-        echo "<script>alert('Invalid username or password!');</script>";
-    }
-}
 
 // Handle Register Free form → Go to register.php
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -49,112 +11,136 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     header('Location: register.php');
     exit;
 }
-
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Matrimony</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <style>
-    .hero-section {
-      background-image: url('./images/back.jpg');
-      background-size: cover;
-      background-position: center;
-      height: 100vh;
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      text-align: center;
-    }
-    .hero-form input, .hero-form select {
-      margin: 5px;
-    }
-    .navbar-brand img {
-      height: 40px;
-    }
-    .modal-content {
-      border-radius: 10px;
-    }
-  </style>
-</head>
-<body>
+<!-- Display Messages -->
+<?php if (isset($_SESSION['error'])): ?>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <?php echo $_SESSION['error']; unset($_SESSION['error']); ?>
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+<?php endif; ?>
 
-<!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light px-4">
-  <a class="navbar-brand" href="#"><img src="images/logo1.png" alt="Logo"></a>
-  <div class="collapse navbar-collapse">
-    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-      <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
-      <li class="nav-item"><a class="nav-link" href="about.php">About</a></li>
-      <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
-      <li class="nav-item"><a class="nav-link" href="#">Profiles</a></li>
-      <li class="nav-item"><a class="nav-link" href="">Happy Stories</a></li>
-      <li class="nav-item"><a class="nav-link" href="search.php">Search</a></li>
-    </ul>
-    <form class="d-flex align-items-center">
-      
-      <?php if (isset($_SESSION['username'])): ?>
-        <span class="me-3">👤 <?php echo htmlspecialchars($_SESSION['username']); ?></span>
-        <a href="logout.php" class="btn btn-danger">Logout</a>
-      <?php else: ?>
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#loginModal">Login</button>
-      <?php endif; ?>
-    </form>
-  </div>
-</nav>
+<?php if (isset($_SESSION['success'])): ?>
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <?php echo $_SESSION['success']; unset($_SESSION['success']); ?>
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+<?php endif; ?>
 
 <!-- Hero Section -->
-<section class="hero-section">
-  <h1>Divine Matches Happen</h1>
-  <p>Destined to unite those divinely bonded partners, we strive towards perfection with utmost dedication.</p>
-  <form class="hero-form d-flex justify-content-center flex-wrap" method="POST">
-    <input type="text" class="form-control w-auto" name="name" placeholder="Enter Your Name" required>
-    <select class="form-select w-auto" name="gender" required>
-      <option selected disabled>Gender</option>
-      <option value="Male">Male</option>
-      <option value="Female">Female</option>
-    </select>
-    <input type="text" class="form-control w-auto" name="mobile" placeholder="Mobile Number" required>
-    <button type="submit" name="register" class="btn btn-primary">Register Free</button>
-  </form>
+<section class="hero-section" style="background-image: url('./images/back.jpg'); background-size: cover; background-position: center; height: 100vh; color: white; display: flex; align-items: center; justify-content: center; flex-direction: column; text-align: center;">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <h1 class="display-4 fw-bold mb-4">Divine Matches Happen Here</h1>
+                <p class="lead mb-5">Destined to unite those divinely bonded partners, we strive towards perfection with utmost dedication.</p>
+                
+                <?php if (!isset($_SESSION['user_id'])): ?>
+                <form class="hero-form d-flex justify-content-center flex-wrap gap-2" method="POST">
+                    <input type="text" class="form-control" style="max-width: 200px;" name="name" placeholder="Enter Your Name" required>
+                    <select class="form-select" style="max-width: 150px;" name="gender" required>
+                        <option selected disabled>Gender</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                    </select>
+                    <input type="text" class="form-control" style="max-width: 200px;" name="mobile" placeholder="Mobile Number" required>
+                    <button type="submit" name="register" class="btn btn-primary btn-lg">Register Free</button>
+                </form>
+                <?php else: ?>
+                <div class="text-center">
+                    <a href="search.php" class="btn btn-primary btn-lg me-3">Find Your Match</a>
+                    <a href="user-profile.php" class="btn btn-outline-light btn-lg">View Profile</a>
+                </div>
+                <?php endif; ?>
+            </div>
+        </div>
+    </div>
 </section>
 
-<!-- Login Modal -->
-<div class="modal fade" id="loginModal" tabindex="-1">
-  <div class="modal-dialog">
-    <div class="modal-content p-3">
-      <div class="modal-header">
-        <h5 class="modal-title">Login</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-      </div>
-      <div class="modal-body">
-        <form method="POST">
-          <input type="hidden" name="login" value="1">
-          <div class="mb-3">
-            <label>Username</label>
-            <input type="text" class="form-control" name="username" placeholder="Enter username" required>
-          </div>
-          <div class="mb-3">
-            <label>Password</label>
-            <input type="password" class="form-control" name="password" placeholder="Enter password" required>
-          </div>
-          <button type="submit" class="btn btn-primary w-100">Login</button>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-      </div>
+<!-- Features Section -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row text-center mb-5">
+            <div class="col-lg-12">
+                <h2 class="display-5 fw-bold">Why Choose Thirumangalyam?</h2>
+                <p class="lead">Your trusted partner in finding the perfect life companion</p>
+            </div>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="main-box text-center">
+                    <div class="main-box-sub p-4 rounded">
+                        <i class="fas fa-shield-alt fa-3x mb-3"></i>
+                        <h3>Verified Profiles</h3>
+                        <p>All profiles are thoroughly verified for authenticity and security</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="main-box text-center">
+                    <div class="main-box-sub p-4 rounded">
+                        <i class="fas fa-search fa-3x mb-3"></i>
+                        <h3>Advanced Search</h3>
+                        <p>Find your perfect match with our advanced search filters</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="main-box text-center">
+                    <div class="main-box-sub p-4 rounded">
+                        <i class="fas fa-heart fa-3x mb-3"></i>
+                        <h3>Success Stories</h3>
+                        <p>Join thousands of couples who found their soulmate through us</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-</div>
+</section>
 
-<!-- Bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+<!-- Recent Profiles Section -->
+<section class="py-5">
+    <div class="container">
+        <div class="row text-center mb-5">
+            <div class="col-lg-12">
+                <h2 class="display-5 fw-bold">Recent Profiles</h2>
+                <p class="lead">Meet our newest members</p>
+            </div>
+        </div>
+        <div class="row g-4">
+            <?php
+            // Fetch recent profiles
+            $recent_query = "SELECT id, name, age, height, job, gender, user_image FROM user_details WHERE is_active = 1 ORDER BY created_at DESC LIMIT 6";
+            $recent_result = mysqli_query($conn, $recent_query);
+            
+            while ($profile = mysqli_fetch_assoc($recent_result)):
+            ?>
+            <div class="col-md-4 col-lg-2">
+                <div class="card h-100 shadow-sm">
+                    <div class="text-center p-3">
+                        <?php
+                        $image_path = !empty($profile['user_image']) ? $profile['user_image'] : 'images/default-profile.png';
+                        if (!empty($profile['user_image']) && strpos($profile['user_image'], 'uploads/') === false) {
+                            $image_path = 'uploads/' . $profile['user_image'];
+                        }
+                        ?>
+                        <img src="<?php echo $image_path; ?>" alt="Profile" class="rounded-circle mb-3" style="width: 80px; height: 80px; object-fit: cover;">
+                        <h6 class="card-title"><?php echo htmlspecialchars($profile['name']); ?></h6>
+                        <p class="card-text small text-muted">
+                            Age: <?php echo $profile['age']; ?><br>
+                            <?php echo htmlspecialchars($profile['job']); ?>
+                        </p>
+                        <a href="profile-details.php?id=<?php echo $profile['id']; ?>" class="btn btn-sm btn-outline-primary">View Profile</a>
+                    </div>
+                </div>
+            </div>
+            <?php endwhile; ?>
+        </div>
+        <div class="text-center mt-4">
+            <a href="profiles.php" class="btn btn-primary btn-lg">View All Profiles</a>
+        </div>
+    </div>
+</section>
+
+<?php include('includes/footer.php'); ?>

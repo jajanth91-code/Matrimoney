@@ -1,4 +1,5 @@
 <?php
+$page_title = "My Profile - Thirumangalyam Matrimony";
 session_start();
 include('Database/db-connect.php');
 
@@ -25,161 +26,200 @@ if (empty($user['height'])) {
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Chavara Matrimony</title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <link rel="stylesheet" href="css/style.css">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-</head>
-<body style="background-color:gray;">
-<nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
+<?php include('includes/header.php'); ?>
+
+<!-- Display Messages -->
+<?php if (isset($_SESSION['message'])): ?>
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <?php echo $_SESSION['message']; unset($_SESSION['message']); ?>
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+<?php endif; ?>
+
+<div style="background-color: #f8f9fa; min-height: 100vh; padding: 20px 0;">
+
     <div class="container">
-        <!-- Logo -->
-        <a class="navbar-brand" href="#">
-            <img src="images/logo1.png" alt="Logo"> <!-- Replace with your logo URL -->
-        </a>
-
-        <!-- Toggler for mobile -->
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <!-- Navbar links -->
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav mr-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link" href="index.php">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">About</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="contact.php">Contact</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="profile.php">Profiles</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Happy Stories</a>
-                </li>
-            </ul>
-
-            <!-- Dynamic Section -->
-            <?php if (!isset($_SESSION['user_id'])): ?>
-                <!-- Show Login Button -->
-                <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#loginModal">Login</a>
-            <?php else: ?>
-                <!-- Show Profile Button -->
-                <a href="user-profile.php" class="btn btn-success">My Profile</a>
-            <?php endif; ?>
-        </div>
-    </div>
-</nav>
-
-    <div class="container-fluid profile-container ml-auto">
         <div class="row">
-            <div class="col-md-8">
+            <!-- Main Profile Card -->
+            <div class="col-lg-8">
                 <!-- Profile Card -->
-                <div class="profile-card" style="background-color: white; display: flex; align-items: center; padding: 20px; border-radius: 10px; border: 1px solid #ddd; width: 70%;">
-                    <!-- Profile Image -->
-                    <div class="profile-header" style="flex-shrink: 0; margin-right: 20px;">
+                <div class="card shadow-sm mb-4">
+                    <div class="card-header bg-primary text-white">
+                        <h4 class="mb-0"><i class="fas fa-user"></i> My Profile</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <!-- Profile Image -->
+                            <div class="col-md-4 text-center">
+                                <?php
+                                $image_path = 'images/default-profile.png';
+                                if (!empty($user['user_image'])) {
+                                    if (strpos($user['user_image'], 'uploads/') === false) {
+                                        $image_path = 'uploads/' . $user['user_image'];
+                                    } else {
+                                        $image_path = $user['user_image'];
+                                    }
+                                    if (!file_exists($image_path)) {
+                                        $image_path = 'images/default-profile.png';
+                                    }
+                                }
+                                ?>
+                                <img src="<?php echo $image_path; ?>" alt="Profile Picture" class="img-fluid rounded-circle mb-3" style="width: 200px; height: 200px; object-fit: cover; border: 4px solid #e9ecef;">
+                                <h4 class="text-primary"><?php echo htmlspecialchars($user['name']); ?></h4>
+                                <p class="text-muted">ID: <?php echo $user['id']; ?></p>
+                            </div>
+                            
+                            <!-- Basic Information -->
+                            <div class="col-md-8">
+                                <h5 class="text-primary mb-3">Basic Information</h5>
+                                <div class="row">
+                                    <div class="col-sm-6 mb-2">
+                                        <strong>Email:</strong><br>
+                                        <span class="text-muted"><?php echo htmlspecialchars($user['email']); ?></span>
+                                    </div>
+                                    <div class="col-sm-6 mb-2">
+                                        <strong>Phone:</strong><br>
+                                        <span class="text-muted"><?php echo htmlspecialchars($user['phone_number']); ?></span>
+                                    </div>
+                                    <div class="col-sm-6 mb-2">
+                                        <strong>Date of Birth:</strong><br>
+                                        <span class="text-muted"><?php echo date("d M Y", strtotime($user['dob'])); ?></span>
+                                    </div>
+                                    <div class="col-sm-6 mb-2">
+                                        <strong>Age:</strong><br>
+                                        <span class="text-muted"><?php echo $user['age']; ?> years</span>
+                                    </div>
+                                    <div class="col-sm-6 mb-2">
+                                        <strong>Gender:</strong><br>
+                                        <span class="text-muted"><?php echo ucfirst($user['gender']); ?></span>
+                                    </div>
+                                    <div class="col-sm-6 mb-2">
+                                        <strong>Marital Status:</strong><br>
+                                        <span class="text-muted"><?php echo htmlspecialchars($user['marital_status']); ?></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Detailed Information -->
+                <div class="card shadow-sm">
+                    <div class="card-header bg-success text-white">
+                        <h5 class="mb-0"><i class="fas fa-info-circle"></i> Detailed Information</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h6 class="text-primary">Physical Details</h6>
+                                <table class="table table-borderless">
+                                    <tr>
+                                        <td><strong>Height:</strong></td>
+                                        <td><?php echo htmlspecialchars($user['height']); ?></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Complexion:</strong></td>
+                                        <td><?php echo htmlspecialchars($user['complexion']); ?></td>
+                                    </tr>
+                                </table>
+                                
+                                <h6 class="text-primary mt-4">Location Details</h6>
+                                <table class="table table-borderless">
+                                    <tr>
+                                        <td><strong>Resident:</strong></td>
+                                        <td><?php echo htmlspecialchars($user['resident']); ?></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Native Place:</strong></td>
+                                        <td><?php echo htmlspecialchars($user['native_place']); ?></td>
+                                    </tr>
+                                </table>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <h6 class="text-primary">Astrological Details</h6>
+                                <table class="table table-borderless">
+                                    <tr>
+                                        <td><strong>Nakshatra:</strong></td>
+                                        <td><?php echo htmlspecialchars($user['nakshatra']); ?></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Raasi:</strong></td>
+                                        <td><?php echo htmlspecialchars($user['raasi']); ?></td>
+                                    </tr>
+                                </table>
+                                
+                                <h6 class="text-primary mt-4">Professional Details</h6>
+                                <table class="table table-borderless">
+                                    <tr>
+                                        <td><strong>Qualification:</strong></td>
+                                        <td><?php echo htmlspecialchars($user['qualification']); ?></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Job:</strong></td>
+                                        <td><?php echo htmlspecialchars($user['job']); ?></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sidebar -->
+            <div class="col-lg-4">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-info text-white">
+                        <h5 class="mb-0"><i class="fas fa-cogs"></i> Profile Actions</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-grid gap-2">
+                            <a href="edit-profile.php" class="btn btn-outline-primary">
+                                <i class="fas fa-edit"></i> Edit Information
+                            </a>
+                            <a href="change-profile-picture.php" class="btn btn-outline-success">
+                                <i class="fas fa-camera"></i> Change Profile Picture
+                            </a>
+                            <a href="search.php" class="btn btn-outline-info">
+                                <i class="fas fa-search"></i> Find Matches
+                            </a>
+                            <a href="profiles.php" class="btn btn-outline-warning">
+                                <i class="fas fa-users"></i> Browse Profiles
+                            </a>
+                            <hr>
+                            <a href="logout.php" class="btn btn-outline-danger" onclick="return confirm('Are you sure you want to logout?')">
+                                <i class="fas fa-sign-out-alt"></i> Logout
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Profile Completion -->
+                <div class="card shadow-sm mt-4">
+                    <div class="card-header bg-warning text-dark">
+                        <h6 class="mb-0"><i class="fas fa-chart-pie"></i> Profile Completion</h6>
+                    </div>
+                    <div class="card-body">
                         <?php
-                       // Check if the user has uploaded an image and display it
-                        if (!empty($user['user_image'])) {
-                       // Check if the image already contains the "uploads/" path
-                            if (strpos($user['user_image'], 'uploads/') === false) {
-                       // If the 'uploads/' part is missing, add it to the path
-                                $user_image_path = 'uploads/' . $user['user_image'];
-                            } else {
-                       // If the path already contains 'uploads/', just use it as is
-                                $user_image_path = $user['user_image'];
-                            }
-
-
-
-                  // Check if the image file exists
-                            if (file_exists($user_image_path)) {
-            // If the file exists, display the image
-                                echo '<img src="' . $user_image_path . '" alt="User Image" height="250px" width="200px">';
-                            } else {
-            // If the file doesn't exist, show an error message
-                                echo '<p>Image not found at: ' . $user_image_path . '</p>';
-                            }
-                        } else {
-        // If no user image, show a default image
-                            echo '<p>No profile image available. Displaying default image.</p>';
-                            echo '<img src="images/default-profile.png" alt="Default Profile Image" height="250px" width="200px">';
+                        $fields = ['name', 'email', 'phone_number', 'height', 'nakshatra', 'raasi', 'job', 'qualification', 'user_image'];
+                        $completed = 0;
+                        foreach ($fields as $field) {
+                            if (!empty($user[$field])) $completed++;
                         }
+                        $percentage = round(($completed / count($fields)) * 100);
                         ?>
-                    </div>
-
-                    <!-- Profile Info -->
-                    <div class="profile-info">
-                        <p><strong>User Name:</strong> <?php echo $user['name']; ?></p>
-                        <p><strong>User ID:</strong> <?php echo $user['id']; ?></p>
-                        <p><strong>Email:</strong> <?php echo $user['email']; ?></p>
-                        <p><strong>Phone Number:</strong> <?php echo $user['phone_number']; ?></p>
-                        <p><strong>Date of Birth:</strong> <?php echo date("d M Y", strtotime($user['dob'])); ?></p>
-                        <p><strong>Gender:</strong> <?php echo ucfirst($user['gender']); ?></p>
-                        <p><strong>district:</strong> <?php echo ($user['district']); ?></p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="profile-card">
-                    <div class="profile-actions">
-                        <ul class="list-unstyled">
-                            <li><a href="edit-profile.php"><i class="fas fa-edit"></i> Edit Information</a></li>
-                            <li><a href="change-profile-picture.php"><i class="fas fa-camera"></i> Change Profile Picture</a></li>
-                            <li><a href="delete-profile.php"><i class="fas fa-trash-alt"></i> Delete Profile</a></li>
-                            <li><a href="log-out.php"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-8">
-                <div class="profile-card">
-                    <div class="profile-info">
-                        <p><strong>Age:</strong> <?php echo $user['age']; ?></p>
-                        <p><strong>Height:</strong> <?php echo $user['height']; ?></p>
-                        <p><strong>Nakshatra:</strong> <?php echo $user['nakshatra']; ?></p>
-                        <p><strong>Raasi:</strong> <?php echo $user['raasi']; ?></p>
-                        <p><strong>Resident:</strong> <?php echo $user['resident']; ?></p>
-                        <p><strong>Native Place:</strong> <?php echo $user['native_place']; ?></p>
-                        <p><strong>Complexion:</strong> <?php echo $user['complexion']; ?></p>
-                        <p><strong>Marital Status:</strong> <?php echo $user['marital_status']; ?></p>
-                        <p><strong>Qualification:</strong> <?php echo $user['qualification']; ?></p>
-                        <p><strong>Job:</strong> <?php echo $user['job']; ?></p>
+                        <div class="progress mb-2">
+                            <div class="progress-bar" role="progressbar" style="width: <?php echo $percentage; ?>%" aria-valuenow="<?php echo $percentage; ?>" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <p class="mb-0"><?php echo $percentage; ?>% Complete</p>
+                        <?php if ($percentage < 100): ?>
+                        <small class="text-muted">Complete your profile to get better matches!</small>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    
+</div>
 
-    <footer class="site-footer">
-        <div class="footer-container">
-            <div class="footer-links">
-                <a href="#">Home</a>
-                <a href="#">Service</a>
-                <a href="#">Contact Us</a>
-                <a href="#">FAQs</a>
-                <a href="#">Terms & Conditions</a>
-                <a href="#">Privacy Policy</a>
-            </div>
-            <div class="footer-bottom">
-                <p>Copyright © 2024 All rights reserved.</p>
-                <p>Powered by | TKS IT Solution | Matrimony Version 1.0</p>
-            </div>
-        </div>
-    </footer>
-
-</body>
-</html>
+<?php include('includes/footer.php'); ?>

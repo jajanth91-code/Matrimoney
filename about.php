@@ -1,59 +1,8 @@
- 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Matrimony</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <style>
-    .hero-section {
-      background-image: url('./images/back.jpg');
-      background-size: cover;
-      background-position: center;
-      height: 100vh;
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      text-align: center;
-    }
-    .hero-form input, .hero-form select {
-      margin: 5px;
-    }
-    .navbar-brand img {
-      height: 40px;
-    }
-    .modal-content {
-      border-radius: 10px;
-    }
-  </style>
-</head>
-<body>
-<!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light px-4">
-  <a class="navbar-brand" href="#"><img src="images/logo1.png" alt="Logo"></a>
-  <div class="collapse navbar-collapse">
-    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-      <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
-      <li class="nav-item"><a class="nav-link" href="about.php">About</a></li>
-      <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
-      <li class="nav-item"><a class="nav-link" href="#">Profiles</a></li>
-      <li class="nav-item"><a class="nav-link" href="">Happy Stories</a></li>
-      <li class="nav-item"><a class="nav-link" href="search.php">Search</a></li>
-    </ul>
-    <form class="d-flex align-items-center">
-      
-      <?php if (isset($_SESSION['username'])): ?>
-        <span class="me-3">👤 <?php echo htmlspecialchars($_SESSION['username']); ?></span>
-        <a href="logout.php" class="btn btn-danger">Logout</a>
-      <?php else: ?>
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#loginModal">Login</button>
-      <?php endif; ?>
-    </form>
-  </div>
-</nav>
+<?php
+$page_title = "About Us - Thirumangalyam Matrimony";
+include('includes/header.php');
+?>
+
 <div class="container my-5">
     <div class="row align-items-center">
         <!-- Left Side: Image -->
@@ -85,7 +34,72 @@
         </div>
     </div>
 </div>
-</body>
-</html>
 
+<!-- Features Section -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row text-center mb-5">
+            <div class="col-lg-12">
+                <h2 class="display-5 fw-bold">Our Services</h2>
+                <p class="lead">Comprehensive matrimonial services for your perfect match</p>
+            </div>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="text-center p-4">
+                    <i class="fas fa-user-check fa-3x text-primary mb-3"></i>
+                    <h4>Profile Verification</h4>
+                    <p>All profiles undergo thorough verification to ensure authenticity and safety.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="text-center p-4">
+                    <i class="fas fa-search-plus fa-3x text-primary mb-3"></i>
+                    <h4>Advanced Matching</h4>
+                    <p>Our intelligent matching system finds compatible partners based on your preferences.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="text-center p-4">
+                    <i class="fas fa-headset fa-3x text-primary mb-3"></i>
+                    <h4>24/7 Support</h4>
+                    <p>Our dedicated support team is always available to help you in your journey.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
+<!-- Statistics Section -->
+<section class="py-5">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-md-3">
+                <div class="p-4">
+                    <h2 class="display-4 text-primary fw-bold">10K+</h2>
+                    <p class="lead">Happy Couples</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="p-4">
+                    <h2 class="display-4 text-primary fw-bold">50K+</h2>
+                    <p class="lead">Registered Users</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="p-4">
+                    <h2 class="display-4 text-primary fw-bold">95%</h2>
+                    <p class="lead">Success Rate</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="p-4">
+                    <h2 class="display-4 text-primary fw-bold">24/7</h2>
+                    <p class="lead">Support Available</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<?php include('includes/footer.php'); ?>
