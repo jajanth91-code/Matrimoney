@@ -1,0 +1,205 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/C/xampp/htdocs/Maangalyam/Maangalyam/register.php",
+		"/C/xampp/htdocs/Maangalyam/Maangalyam/search.php",
+		"/C/xampp/htdocs/Maangalyam/Maangalyam/admin/dashboard.php",
+		"/C/xampp/htdocs/Maangalyam/Maangalyam/admin/index.php",
+		"/C/xampp/htdocs/Maangalyam/Maangalyam/admin/view-user.php",
+		"/C/xampp/htdocs/Maangalyam/Maangalyam/user-profile.php",
+		"/C/xampp/mysql/data/sarahcollege/course.MYI",
+		"/C/xampp/mysql/data/sarahcollege/student.MYD",
+		"/C/xampp/mysql/data/sarahcollege/db.opt",
+		"/C/xampp/htdocs/thenu-grocery-hub/customer/checkout.php",
+		"/C/xampp/htdocs/thenu-grocery-hub/customer/orders.php",
+		"/C/Users/jajan/AppData/Local/Microsoft/Windows/INetCache/IE/4G67ZR3X/sarahcollege_(2)[1].sql",
+		"/C/xampp/htdocs/thenu-grocery-hub/sql/migrations/20250628053408_warm_shrine.sql",
+		"/C/xampp/htdocs/thenu-grocery-hub/customer/search.php",
+		"/C/xampp/htdocs/thenu-grocery-hub/customer/login.php",
+		"/E/checkout.php",
+		"/C/xampp/htdocs/thenu-grocery-hub/includes/header.php",
+		"/C/xampp/htdocs/thenu-grocery-hub/customer/order-success.php",
+		"/C/xampp/htdocs/Maangalyam/admin/adminlogin.php",
+		"/C/xampp/htdocs/thenu-grocery-hub/admin/view-orders.php",
+		"/C/xampp/htdocs/Maangalyam/contact.php",
+		"/C/xampp/htdocs/Maangalyam/profile.php",
+		"/C/xampp/htdocs/Maangalyam/admin/index.php",
+		"/C/xampp/htdocs/Maangalyam/login.php",
+		"/C/xampp/htdocs/thenu-grocery-hub/customer/index.php",
+		"/C/xampp/htdocs/Maangalyam/about.php",
+		"/C/xampp/htdocs/Maangalyam/privacy-policy.php",
+		"/C/xampp/htdocs/Maangalyam/admin/logout.php",
+		"/C/xampp/htdocs/Maangalyam/change-profile-picture.php",
+		"/C/xampp/htdocs/Maangalyam/register.php",
+		"/C/xampp/htdocs/Maangalyam/admin/view-user.php",
+		"/C/xampp/htdocs/Maangalyam/index.php",
+		"/C/xampp/htdocs/Maangalyam/user-profile.php",
+		"/C/xampp/htdocs/Maangalyam/personaldeatiles.php",
+		"/C/xampp/htdocs/Maangalyam/search.php",
+		"/E/InventoryManagementSystem-master/SQL/InventoryDB.sql"
+	],
+	"find":
+	{
+		"height": 45.6
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"scrollbar_highlights": true,
+		"show_context": true,
+		"use_buffer2": true,
+		"use_gitignore": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 45.6
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"pinned_build_system": "",
+	"project": "adminlogin.sublime-project",
+	"replace":
+	{
+		"height": 88.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 281.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
